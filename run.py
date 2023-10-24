@@ -13,10 +13,17 @@ if __name__ == "__main__":
     if ans1.upper() == "Y":
         ac = AutomaticChosen()
         model_choice = input("Enter algorithm (lm/km): ")
+        print(f"Columns: {ac.db.show_data().columns.values}")
+        selected_var = int(input("Enter index of column to be used as independent feature: "))
         values = ""
-        while values != "KONIEC":
+        while True:
             values = input("Enter values for prediction (sep by comma): ")
-            ac.select_model(model_choice, values)
+            if values == "KONIEC":
+                break
+            values = [int(x) for x in values.split(",")]
+            y_pred = ac.select_model(model_choice, selected_var, values)
+            # breakpoint()
+            print(f"Predicted value: {y_pred}")
 
         # data = load_iris()["data"]
         # db = DBCreator("iris", data.shape[1], "a,b,c,d")

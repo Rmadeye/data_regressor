@@ -37,4 +37,4 @@ class LinReg(MachineAlgorithm):
         data = self.prepare_data()
         self.model.fit(data["X_train"], data["y_train"])
 
-        return self.model, data["X_test"], data["y_test"]
+        return self.model, data['Scaler'], data["X_test"], data["y_test"]

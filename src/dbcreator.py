@@ -6,10 +6,12 @@ import numpy as np
 
 
 class DBCreator:
-    def __init__(self, db_name: str, feature_number: str, feature_names: str):
+    def __init__(self, db_name: str, feature_number: str, feature_names: Union[str,list]):
         self.db_name = db_name
         self.feature_number = int(feature_number)
-        self.feature_names = feature_names.split(",")
+        self.feature_names = feature_names
+        if type(self.feature_names) == str:
+            self.feature_names = feature_names.split(",")
         assert self.db_name, "Database must have a name"
         assert self.feature_number >= 2, "Feature number too small"
         assert len(self.feature_names) == self.feature_number

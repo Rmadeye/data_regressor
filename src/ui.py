@@ -9,7 +9,7 @@ from src.dbcreator import DBCreator
 class AutomaticChosen:
     dataset: np.array = load_iris()["data"]
     dbname: str = "iris"
-    cols: str = "a,b,c,d"
+    cols: list = load_iris()["feature_names"]
 
     def __init__(self):
         self.db = DBCreator(self.dbname, self.dataset.shape[1], self.cols)
@@ -21,15 +21,15 @@ class AutomaticChosen:
 
     def select_model(
         self,
-        chosen_model: str = "lr",
+        chosen_model: str = "lm",
         selected_var: int = -1,
         values_to_predict: list = [0, 0, 0],
     ):
         X, y = self.split_dataset(selected_var)
-        if chosen_model == "lr":
+        if chosen_model == "lm":
             lr = LinReg(X, y).prepare_model()
             vals = np.array(values_to_predict).reshape(-1, 1).reshape(1, -1)
-            # breakpoint()
+            assert type(vals) == np.ndarray
+            vals = lr[1].transform(vals)
             output = lr[0].predict(vals)
-
-            return output
+            return output[0]

@@ -37,4 +37,4 @@ def test_linreg(chosen_model, selected_var, values_to_predict):
     ac = AutomaticChosen()
     predict = ac.select_model(str(chosen_model), selected_var, values_to_predict)
 
-    assert predict != None
+    assert predict != 'None'

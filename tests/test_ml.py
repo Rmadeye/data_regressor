@@ -29,7 +29,7 @@ def test_preprocessing(X=data[:, :-1], y=data[:, -1]):
 
 def test_linreg(X=data[:, :-1], y=data[:, -1]):
     linreg = LinReg(X, y)
-    model, X_test, y_test = linreg.prepare_model()
+    model, _, X_test, y_test = linreg.prepare_model()
     y_pred = model.predict(X_test)
 
     assert model is not None
