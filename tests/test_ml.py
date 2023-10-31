@@ -10,7 +10,7 @@ import unittest.mock
 from sklearn.datasets import load_iris
 import numpy as np
 
-from src.models import MachineAlgorithm, LinReg
+from src.models import MachineAlgorithm, LinReg, DTRegression
 
 data = load_iris()["data"]
 
@@ -37,3 +37,13 @@ def test_linreg(X=data[:, :-1], y=data[:, -1]):
     assert len(y_pred) == len(linreg.prepare_data()["y_test"])
     mse = np.mean((y_pred - y_test) ** 2)
     assert np.isclose(mse, 0.05, atol=0.01)
+
+def test_kmeans(X=data[:, :-1], y=data[:, -1]):
+    kmeans = DTRegression(X, y)
+    model, _, X_test, y_test = kmeans.prepare_model()
+    y_pred = model.predict(X_test)
+
+    assert model is not None
+    assert len(y_pred) > 0
+    assert len(y_pred) == len(kmeans.prepare_data()["y_test"])
+    

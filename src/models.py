@@ -2,6 +2,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_iris
+from sklearn.cluster import KMeans
 import pandas as pd
 import numpy as np
 
@@ -32,6 +33,17 @@ class LinReg(MachineAlgorithm):
     def __init__(self, X, y):
         super().__init__(X, y)
         self.model = LinearRegression()
+
+    def prepare_model(self):
+        data = self.prepare_data()
+        self.model.fit(data["X_train"], data["y_train"])
+
+        return self.model, data['Scaler'], data["X_test"], data["y_test"]
+    
+class DTRegression(MachineAlgorithm):
+    def __init__(self, X, y):
+        super().__init__(X, y)
+        self.model = KMeans()
 
     def prepare_model(self):
         data = self.prepare_data()

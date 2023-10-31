@@ -31,12 +31,13 @@ def test_creating_db(db_creator):
 @pytest.mark.parametrize("features", [[1, 2]])
 def test_add_entry(db_creator, features: list):
     db_creator._add_entry(features)
-
     assert db_creator.show_data().shape[0] == 1, "Incorrect data shape"
 
 
 def test_input_add(db_creator):
-    with unittest.mock.patch("builtins.input", return_value="1,2"):
-        db_creator.get_data_from_input()
+    with unittest.mock.patch("builtins.input", return_value="1,1"):
+        features = input().split(",")
+        features = [float(f) for f in features]
+        db_creator._add_entry(features)
 
         assert db_creator.show_data().shape[0] == 1, "Incorrect data shape"

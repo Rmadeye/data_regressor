@@ -24,9 +24,13 @@ class DBCreator:
             ignore_index=True,
         )
 
-    def get_data_from_input(self):
-        features = input("Enter your features separated by comma")
-        features = features.split(",")
+    def get_data_from_input(self, features: Union[List, str] = None):
+        if isinstance(features, str):
+            features = features.split(",")
+        elif isinstance(features, list):
+            features = features
+        # features = input("Enter your features separated by comma")
+        # features = features.split(",")
         self._add_entry(features)
 
     def show_data(self):
