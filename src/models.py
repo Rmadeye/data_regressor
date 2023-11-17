@@ -13,19 +13,12 @@ class MachineAlgorithm:
         self.y = y
 
     def prepare_data(self):
-        X_train, X_test, y_train, y_test = train_test_split(
-            self.X, self.y, test_size=0.2, random_state=0
-        )
         sc = StandardScaler()
-        sc.fit(X_train)
-        X_train = sc.transform(X_train)
-        X_test = sc.transform(X_test)
+        sc.fit(self.X)
         return {
             "Scaler": sc,
-            "X_train": X_train,
-            "X_test": X_test,
-            "y_train": y_train,
-            "y_test": y_test,
+            "X_train": sc.transform(self.X),
+            "y_train": self.y,
         }
 
 
@@ -34,19 +27,20 @@ class LinReg(MachineAlgorithm):
         super().__init__(X, y)
         self.model = LinearRegression()
 
-    def prepare_model(self):
+    def prepare_model_and_data(self):
         data = self.prepare_data()
         self.model.fit(data["X_train"], data["y_train"])
 
-        return self.model, data['Scaler'], data["X_test"], data["y_test"]
+        return self.model, data['Scaler']
+    
     
 class DTRegression(MachineAlgorithm):
     def __init__(self, X, y):
         super().__init__(X, y)
         self.model = KMeans()
 
-    def prepare_model(self):
+    def prepare_model_and_data(self):
         data = self.prepare_data()
         self.model.fit(data["X_train"], data["y_train"])
 
-        return self.model, data['Scaler'], data["X_test"], data["y_test"]
+        return self.model, data['Scaler']

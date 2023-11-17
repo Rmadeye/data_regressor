@@ -10,7 +10,7 @@ class DBCreator:
         self.db_name = db_name
         self.feature_number = int(feature_number)
         self.feature_names = feature_names
-        if type(self.feature_names) == str:
+        if isinstance(self.feature_names,str):
             self.feature_names = feature_names.split(",")
         assert self.db_name, "Database must have a name"
         assert self.feature_number >= 2, "Feature number too small"
@@ -24,14 +24,9 @@ class DBCreator:
             ignore_index=True,
         )
 
-    def get_data_from_input(self, features: Union[List, str] = None):
-        if isinstance(features, str):
-            features = features.split(",")
-        elif isinstance(features, list):
-            features = features
-        # features = input("Enter your features separated by comma")
-        # features = features.split(",")
+    def add_entry_from_input(self, features: Union[List, str] = None):
+        features = features.split(",") if isinstance(features, str) else features
         self._add_entry(features)
 
-    def show_data(self):
+    def return_dataframe(self):
         return self.df

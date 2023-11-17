@@ -29,7 +29,7 @@ def test_preprocessing(X=data[:, :-1], y=data[:, -1]):
 
 def test_linreg(X=data[:, :-1], y=data[:, -1]):
     linreg = LinReg(X, y)
-    model, _, X_test, y_test = linreg.prepare_model()
+    model, _, X_test, y_test = linreg.prepare_model_and_data()
     y_pred = model.predict(X_test)
 
     assert model is not None
@@ -40,7 +40,7 @@ def test_linreg(X=data[:, :-1], y=data[:, -1]):
 
 def test_kmeans(X=data[:, :-1], y=data[:, -1]):
     kmeans = DTRegression(X, y)
-    model, _, X_test, y_test = kmeans.prepare_model()
+    model, _, X_test, y_test = kmeans.prepare_model_and_data()
     y_pred = model.predict(X_test)
 
     assert model is not None
