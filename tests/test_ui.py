@@ -1,12 +1,8 @@
-import pytest
-import pandas as pd
-import unittest.mock
 from sklearn.datasets import load_iris
 import numpy as np
 import pytest
 
 from src.ui import DataPredictor
-from src.models import LinReg, DTRegression
 
 @pytest.fixture
 def dataset():
