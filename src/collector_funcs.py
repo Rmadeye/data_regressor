@@ -1,21 +1,34 @@
 import numpy as np
+from enum import Enum
 
+
+class AnswerCollector(Enum):
+    YES = "Y"
+    NO = "N"
+    LM = "LM"
+    DT = "DT"
+    KONIEC = "KONIEC"
+
+    @classmethod
+    def choices(cls, answer: str):
+        return answer.upper()
 
 def collect_user_dataset_choice() -> str:
     print("Do you want to work on preset dataset?")
-    ans1 = input("Y/n: ")
-    if ans1.upper() == "Y":
+    ans = AnswerCollector.choices(input("Y/n: "))
+    if ans == AnswerCollector.YES.value:
         return "preset"
-    elif ans1.upper() == "N":
+    elif ans == AnswerCollector.NO.value:
         return "user"
     else:
         print("Wrong choice, try again")
         return collect_user_dataset_choice()
+
+
     
 def collect_model_choice() -> str:
-    print("Enter algorithm (lm/dt): ")
-    ans = input()
-    if ans.lower() == "lm" or ans.lower() == "dt":
+    ans = AnswerCollector.choices(input("Enter algorithm (lm/dt): "))
+    if ans == "LM" or ans == "DT":
         return ans
     else:
         print("Wrong choice, try again")
@@ -32,7 +45,7 @@ def collect_user_dataset_data() -> tuple:
     feature_values = ""
     while True:
         feature_values = input("Enter your features separated by comma or KONIEC to exit: ")
-        if feature_values == "KONIEC":
+        if AnswerCollector.choices(feature_values) == "KONIEC":
             break
         feature_values = feature_values.split(",")
         dataset.append(feature_values)

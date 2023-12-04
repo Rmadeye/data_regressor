@@ -5,7 +5,7 @@ from src.collector_funcs import collect_user_dataset_choice, collect_model_choic
 
 
 
-@mock.patch("builtins.input", side_effect=['Y', 'N','dummy'])
+@mock.patch("builtins.input", side_effect=['y', 'n','dummy'])
 def test_collect_user_dataset_choice(mock_input):
     assert collect_user_dataset_choice() == "preset"
     assert collect_user_dataset_choice() == "user"
@@ -14,8 +14,8 @@ def test_collect_user_dataset_choice(mock_input):
 
 @mock.patch("builtins.input", side_effect=['lm', 'dt','dummy'])
 def test_collect_model_choice(mock_input):
-    assert collect_model_choice() == "lm"
-    assert collect_model_choice() == "dt"
+    assert collect_model_choice() == "LM"
+    assert collect_model_choice() == "DT"
 
     assert mock_input.call_count == 2
 
